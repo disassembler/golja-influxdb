@@ -9,6 +9,7 @@ class influxdb::server (
   $influxdb_stdout_log                          = $influxdb::params::influxdb_stdout_log,
   $influxd_opts                                 = $influxdb::params::influxd_opts,
   $manage_install                               = $influxdb::params::manage_install,
+  $manage_repo                                  = $influxdb::params::manage_repo,
 
   $reporting_disabled                           = $influxdb::params::reporting_disabled,
 
@@ -88,6 +89,7 @@ class influxdb::server (
   $continuous_queries_log_enabled               = $influxdb::params::continuous_queries_log_enabled,
   $continuous_queries_run_interval              = $influxdb::params::continuous_queries_run_interval
 ) inherits influxdb::params {
+  validate_bool($manage_repo)
 
   anchor { 'influxdb::server::start': }->
   class { 'influxdb::server::install': }->
